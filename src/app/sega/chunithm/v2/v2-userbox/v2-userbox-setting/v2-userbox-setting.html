@@ -1,12 +1,74 @@
-<h1 mat-dialog-title>Change Item</h1>
-<mat-dialog-content>
-  <mat-form-field style="min-width:20rem;">
-    <mat-select [(ngModel)]="data.itemId">
-      <mat-option *ngFor="let item of iList" [value]="item.itemId">{{item.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="data.itemId">Apply</button>
-</mat-dialog-actions>
+    <div class="modal-content" style="max-height: 500px;">
+      <div class="modal-body">
+        <h2>Change Item</h2>
+        <article *ngIf="enableImages == true" class="card">
+          <section class="card-body namePlate" *ngIf="data.itemKind == 1">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <p class="card-subtitle text-truncate">{{item.name}}</p>
+                  <img class="card-img" src="{{host}}assets/chuni/namePlate/CHU_UI_NamePlate_{{item.itemId|formatNumber:8}}.png">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card-body mapIcon" *ngIf="data.itemKind == 8">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <p class="card-title text-truncate">{{item.name}}</p>
+                  <img class="card-img" src="{{host}}assets/chuni/mapIcon/CHU_UI_MapIcon_{{item.itemId|formatNumber:8}}.png">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card-body systemVoice" *ngIf="data.itemKind == 9">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <p class="card-title text-truncate">{{item.name}}</p>
+                  <img class="card-img" src="{{host}}assets/chuni/systemVoice/CHU_UI_SystemVoice_{{item.itemId|formatNumber:8}}.png">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card-body avatar" *ngIf="data.itemKind == 11">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4 col-xl-4 mt-3" *ngFor="let item of iList" (click)="data.itemId = item.itemId"  [ngClass]="{'selected': data.itemId == item.itemId}">
+                  <p class="card-title text-truncate">{{item.name}}</p>
+                  <img class="card-img" src="{{host}}assets/chuni/avatar/CHU_UI_Avatar_Icon_{{item.itemId|formatNumber:8}}.png">
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+          <section class="card-body" *ngIf="data.itemKind == 3 || data.itemKind == 2">
+            <select [(ngModel)]="data.itemId" size="20" class="form-select trophy-select" multiple aria-label="multiple select example">
+              <option selected>Open this select menu</option>
+              <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
+            </select>
+          </section>
+        </article>
+
+        <section class="card-body" *ngIf="enableImages == false">
+          <select [(ngModel)]="data.itemId" size="10" class="form-select frame-select" multiple="false" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option *ngFor="let item of iList" value="{{item.itemId}}">{{item.name}}</option>
+          </select>
+        </section>
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" mat-dialog-close>Close</button>
+        <button type="button" class="btn btn-primary" (click)="parentComponent.handleApplyClick(this.data)">Apply</button> -->
+        <mat-dialog-actions>
+          <button mat-button mat-dialog-close>Cancel</button>
+          <button mat-raised-button color="accent" [mat-dialog-close]="data.itemId">Apply</button>
+        </mat-dialog-actions>
+      </div>
+    </div>
